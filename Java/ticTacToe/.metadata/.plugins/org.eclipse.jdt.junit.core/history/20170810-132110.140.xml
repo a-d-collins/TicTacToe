@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="TestBoard" project="TicTacToe" tests="11" started="11" failures="0" errors="0" ignored="0">
+  <testsuite name="ticTacToe.TestBoard" time="0.0">
+    <testcase name="testIsVerticalWin" classname="ticTacToe.TestBoard" time="0.0"/>
+    <testcase name="testCopy" classname="ticTacToe.TestBoard" time="0.0"/>
+    <testcase name="testMostRecentPlay" classname="ticTacToe.TestBoard" time="0.0"/>
+    <testcase name="testIsHorizontalWinTrue" classname="ticTacToe.TestBoard" time="0.0"/>
+    <testcase name="testIsDiagonalWinFalse" classname="ticTacToe.TestBoard" time="0.0"/>
+    <testcase name="testIsDiagonalWinTrue1" classname="ticTacToe.TestBoard" time="0.0"/>
+    <testcase name="testIsDiagonalWinTrue2" classname="ticTacToe.TestBoard" time="0.0"/>
+    <testcase name="testMakePlay" classname="ticTacToe.TestBoard" time="0.0"/>
+    <testcase name="testPlayerHasWonFalse" classname="ticTacToe.TestBoard" time="0.0"/>
+    <testcase name="testIsHorizontalWinFalse" classname="ticTacToe.TestBoard" time="0.0"/>
+    <testcase name="testPlayerHasWonTrue" classname="ticTacToe.TestBoard" time="0.0"/>
+  </testsuite>
+</testrun>

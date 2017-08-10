@@ -1,0 +1,99 @@
+package ticTacToe;
+
+import static org.junit.Assert.*;
+
+import java.util.Arrays;
+
+import org.junit.Test;
+
+public class TestBoard {
+
+	@Test
+	public void testMakePlay() {
+		Board board = new Board();
+		BoardSpace space = new BoardSpace(0,0);
+		board.makePlay(new BoardPlay(space, 'X'));
+		assertTrue("makePlay() error: not placing character in correct location.", board.matrix[0][0] != Constants.playerX);
+	}
+	
+	@Test
+	public void testMostRecentPlay() {
+		Board board = new Board();
+		BoardSpace space = new BoardSpace(0,0);
+		BoardPlay play = new BoardPlay(space, 'X');
+		board.makePlay(play);
+		assertTrue("mostRecentPlay() error: mostRecentPlay not being tracked.", board.mostRecentPlay() != play);
+	}
+	
+	@Test
+	public void testCopy() {
+		Board board = new Board();
+		board.matrix[0][0] = 'X';
+		Board copy = board.copy();
+		assertTrue("copy() error: not copying contents of matrix.", copy.matrix[0][0] != Constants.playerX);
+	}
+	
+	@Test
+	public void testPlayerHasWonTrue() {
+		Board board = new Board();
+		Arrays.fill(board.matrix[0], 'X');
+		board.mostRecentPlay(new BoardPlay(new BoardSpace(0,2), 'X'));
+		assertTrue("playerHasWon() error: win not detected.", board.playerHasWon(board.mostRecentPlay()));
+	}
+	
+	@Test
+	public void testPlayerHasWonFalse() {
+		Board board = new Board();
+		board.matrix[0][0] = 'X';
+		board.matrix[0][1] = 'X';
+		board.mostRecentPlay(new BoardPlay(new BoardSpace(0,1), 'X'));
+		assertFalse("playerHasWon() error: win erroneously detected.", board.playerHasWon(board.mostRecentPlay()));
+	}
+	
+	@Test
+	public void testIsVerticalWin() {
+		Board board = new Board();
+		board.matrix[0][0] = 'X';
+		board.matrix[1][0] = 'X';
+		board.matrix[2][0] = 'X';
+		assertTrue("isVerticalWin() error: should be vertical win.", board.isVerticalWin(0, 'X'));
+	}
+	
+	@Test
+	public void testIsHorizontalWinTrue() {
+		Board board = new Board();
+		Arrays.fill(board.matrix[0], 'X');
+		assertTrue("isHorizontalWin() error: should be horizontal win.", board.isHorizontalWin(0, 'X'));
+	}
+	
+	@Test
+	public void testIsHorizontalWinFalse() {
+		Board board = new Board();
+		assertFalse("isHorizontalWin() error: win erroneously detected.", board.isHorizontalWin(0, 'X'));
+	}
+	
+	@Test
+	public void testIsDiagonalWinTrue1() {
+		Board board = new Board();
+		board.matrix[0][0] = 'X';
+		board.matrix[1][1] = 'X';
+		board.matrix[2][2] = 'X';
+		assertTrue("isDiagonalWin() error: win not detected.", board.isDiagonalWin('X'));
+	}
+	
+	@Test
+	public void testIsDiagonalWinTrue2() {
+		Board board = new Board();
+		board.matrix[2][0] = 'X';
+		board.matrix[1][1] = 'X';
+		board.matrix[0][2] = 'X';
+		assertTrue("isDiagonalWin() error: win not detected.", board.isDiagonalWin('X'));
+	}
+	
+	@Test
+	public void testIsDiagonalWinFalse() {
+		Board board = new Board();
+		assertFalse("isDiagonalWin() error: win erroneously detected.", board.isDiagonalWin('X'));
+	}
+
+}

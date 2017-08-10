@@ -1,0 +1,71 @@
+package ticTacToe;
+
+import static org.junit.Assert.*;
+
+import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
+
+import org.junit.Test;
+
+public class TestTicTacToeUtils {
+	
+	@Test
+	public void testGetSpaceCoordinatesFromUser() {
+		ByteArrayInputStream in = new ByteArrayInputStream("1 3".getBytes());
+		System.setIn(in);
+		
+		int[] result = TicTacToeUtils.getSpaceCoordinatesFromUser(System.in);
+		assertEquals(0, result[0]);
+		assertEquals(2, result[1]);
+	}
+	
+	@Test
+	public void testPickBestPlayerOMoveNoMove() {
+		// set up game scenarios such that player O has no best play
+		Game game = SetupUtils.customGameSetup(new int[][] { {0,0}, {0,1}, {2,2}, {1,1}, {2,0} });
+		
+		// mock player X move
+		game.updateCurrentState(game.currentState().children.get(0));
+		
+		// test player O move
+		assertEquals(null, TicTacToeUtils.pickBestPlayerOMove(game, true));
+	}
+	
+	@Test
+	public void testPickBestPlayerOMoveValidMove() {
+		// set up game scenarios such that player O has a valid best play
+		Game game = SetupUtils.customGameSetup(new int[][] { {0,0}, {1,1}, {2,2}, {0,1}, {2,1} });
+		
+		// mock player X move
+		game.updateCurrentState(game.currentState().children.get(0));
+		
+		// test player O move
+		assertTrue(TicTacToeUtils.pickBestPlayerOMove(game, true) != null);
+	}
+	
+	@Test
+	public void testFindWinningNextPlay() {
+		// set up game scenarios such that playerX wins.
+		Game game = SetupUtils.customGameSetup(new int[][] { {0,0}, {1,0}, {0,1}, {1,1}, {0,2} });
+		
+		// update game state such that next the next play is the winning X play.
+		// this requires 4 out of the 5 plays.
+		for (int i = 0; i < 4; i++) {
+			game.updateCurrentState(game.currentState().children.get(0));
+		}
+		assertEquals(
+			game.currentState().children.get(0),
+			TicTacToeUtils.findWinningNextPlay(game.currentState(), Constants.playerX)
+		);
+	}
+	
+	@Test
+	public void testValidBoardState() {
+		// setup scenario in which playerO tries to play in the same space as playerX
+		Game game = SetupUtils.customGameSetup(new int[][] { {0,0} });
+		game.updateCurrentState(game.currentState().children.get(0));
+		
+		assertEquals(null, TicTacToeUtils.validBoardState(new int[] {0,0}, game));
+	}
+
+}
